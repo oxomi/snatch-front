@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Card, CardContent, Typography, TextField, IconButton, Slider, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';  // 수정 아이콘
+import { SNATCH_COLOR } from 'constants/snatchTheme';
 
 // 슬라이더에 필요한 값 설정
 const marks = [
@@ -41,7 +42,7 @@ const DBPage = () => {
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             borderRadius: '30px'
          }}>
-        <CardContent>
+        <CardContent sx={{ padding: '24px' }}> {/* 패딩 추가 */}
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
             <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
               1. <span style={{ color: '#2D58AC' }}>연락처</span>에 대한 마스킹 수준
@@ -55,7 +56,6 @@ const DBPage = () => {
               valueLabelDisplay="off"
               sx={{ 
                 width: '40%',
-
               }}  
             />
           </Box>
@@ -68,7 +68,7 @@ const DBPage = () => {
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
             borderRadius: '30px'
         }}>
-        <CardContent>
+        <CardContent sx={{ padding: '24px' }}> {/* 패딩 추가 */}
           <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
             2. 마스킹 가이드
           </Typography>
@@ -87,14 +87,15 @@ const DBPage = () => {
                   backgroundColor: '#000', 
                   padding: 2, 
                   borderRadius: '4px', 
-                  fontFamily: 'monospace', 
+                  fontFamily: 'Roboto',  // 폰트 변경
+                  fontSize: '16px',      // 폰트 크기 변경
                   input: { color: '#fff' },      
                   textarea: { color: '#fff' },   
                   '& .MuiInputBase-input': { color: '#fff' },
                 }}
               />
             ) : (
-              <div style={{ backgroundColor: '#000', color: '#fff', padding: '16px', borderRadius: '8px', fontFamily: 'monospace' }}>
+              <div style={{ backgroundColor: '#000', color: '#fff', padding: '16px', borderRadius: '30px', fontFamily: 'Roboto', fontSize: '16px' }}>
                 {maskingRule}
               </div>
             )}
@@ -120,14 +121,15 @@ const DBPage = () => {
                   backgroundColor: '#000', 
                   padding: 2, 
                   borderRadius: '4px', 
-                  fontFamily: 'monospace', 
+                  fontFamily: 'Roboto',  // 폰트 변경
+                  fontSize: '16px',      // 폰트 크기 변경
                   input: { color: '#fff' },      
                   textarea: { color: '#fff' },   
                   '& .MuiInputBase-input': { color: '#fff' },
                 }}
               />
             ) : (
-              <div style={{ backgroundColor: '#000', color: '#fff', padding: '16px', borderRadius: '8px', fontFamily: 'monospace' }}>
+              <div style={{ backgroundColor: '#000', color: '#fff', padding: '16px', borderRadius: '30px', fontFamily: 'Roboto', fontSize: '16px' }}>
                 {validationRule}
               </div>
             )}
@@ -145,15 +147,28 @@ const DBPage = () => {
       <Card 
         style={{ 
             boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
-            borderRadius: '30px'
+            borderRadius: '30px',
+            display: 'flex',
+
          }}>
-        <CardContent>
+        <CardContent sx={{ padding: '24px' }}> {/* 패딩 추가 */}
           <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
             3. 적용 예시
           </Typography>
-          <Typography variant="body1" style={{ marginBottom: '16px' }}>
+          <Box
+            sx={{
+                backgroundColor: '#E5E7EB', // 이미지와 유사한 연회색
+                textAlign: 'center', 
+                fontSize: '16px',
+                color: SNATCH_COLOR.black, // 짙은 남색 계열의 텍스트 색상
+                padding: '20px 24px', // 상하좌우 패딩 추가
+                width: 'fit-content', // 내용에 맞는 너비
+                margin: '0 auto', // 박스를 중앙에 배치
+                boxShadow: '0 1px 3px rgba(0, 0, 0, 0.1)', // 부드러운 그림자
+            }}
+          >
             ***-****-****는 나의 휴대전화번호이다.
-          </Typography>
+          </Box>
           <Typography variant="body2" style={{ color: '#666' }}>
             전화번호는 개인정보입니다. 다른 질문을 해주시겠어요?
           </Typography>
