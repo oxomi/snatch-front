@@ -20,7 +20,7 @@ const ChattingLog = () => {
           <EditNoteOutlinedIcon />
         </IconButton>
       </div>
-      <StyledTypography sx={{ marginBottom: '10px', height: '10%' }}>Chatting Log</StyledTypography>
+      <StyledTypography sx={{ marginBottom: '10px' }}>Chatting Log</StyledTypography>
       <Box
         className="flex-col w-full h-[80%] overflow-y-auto"
         sx={{
