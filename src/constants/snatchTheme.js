@@ -9,10 +9,10 @@ export const SNATCH_COLOR = {
 };
 
 export const SNATCH_WIDTH = {
-  sidebar: 330,
+  sidebar: 300,
   container: 1324,
 };
 
 export const SNATCH_HEIGHT = {
-  header: { xs: 64, sm: 76 },
+  header: { xs: 76, sm: 90 },
 };
