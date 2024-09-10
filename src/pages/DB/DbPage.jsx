@@ -149,7 +149,7 @@ const DBPage = () => {
          }}>
         <CardContent>
           <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
-            3. Example of application
+            3. 적용 예시
           </Typography>
           <Typography variant="body1" style={{ marginBottom: '16px' }}>
             ***-****-****는 나의 휴대전화번호이다.
