@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as Logo } from 'assets/logo_dark.svg';
 import { Drawer, Box } from '@mui/material';
 
@@ -8,6 +8,17 @@ import ChattingLog from 'components/SideNav/ChattingLog';
 import InfoCategory from 'components/SideNav/InfoCategory';
 
 const Sidebar = () => {
+  const location = useLocation();
+  const renderList = () => {
+    if (location.pathname === '/') {
+      return <ChattingLog />;
+    } else if (location.pathname === '/database') {
+      return <InfoCategory />;
+    } else {
+      return <ChattingLog />;
+    }
+  };
+
   return (
     <Drawer
       anchor="left"
@@ -31,8 +42,7 @@ const Sidebar = () => {
       <Link to="/">
         <Logo />
       </Link>
-      <ChattingLog />
-      {/* <InfoCategory /> */}
+      {renderList()}
     </Drawer>
   );
 };

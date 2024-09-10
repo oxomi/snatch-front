@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Tabs from '@mui/material/Tabs';
@@ -86,9 +86,9 @@ const Header = () => {
               paddingRight: '20px',
             }} // 요소의 내용과 요소의 경계(테두리) 사이의 공간을 정의
           >
-            <StyledTab label="Chat" />
-            <StyledTab label="DB" component={Link} to='database'/>
-            <StyledTab label="Monitor" />
+            <StyledTab label="Chat" component={Link} to="/" />
+            <StyledTab label="DB" component={Link} to="database" />
+            <StyledTab label="Monitor" component={Link} to="monitor" />
           </StyledTabs>
 
           <div style={{ marginLeft: 'auto', marginTop: '20px' }}>
