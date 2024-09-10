@@ -3,7 +3,8 @@ import { useRoutes } from 'react-router-dom';
 import MainLayout from 'components/Layout/MainLayout';
 import FullContainer from 'components/Layout/Container/FullContainer';
 import ChatPage from 'pages/Chat/ChatPage';
-import DbPage from 'pages/DB/DbPage'
+import DbPage from 'pages/DB/DbPage';
+import MonitorPage from 'pages/Monitor/MonitorPage';
 
 const useMainRouter = () => {
   return useRoutes([
@@ -13,7 +14,11 @@ const useMainRouter = () => {
       children: [
         {
           element: <FullContainer />,
-          children: [{ index: true, element: <ChatPage /> },{path: 'database', element: <DbPage />}],
+          children: [
+            { index: true, element: <ChatPage /> },
+            { path: 'database', element: <DbPage /> },
+            { path: 'monitor', element: <MonitorPage /> },
+          ],
         },
       ],
     },

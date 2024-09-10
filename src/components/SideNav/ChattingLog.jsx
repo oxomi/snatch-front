@@ -1,9 +1,16 @@
 import React from 'react';
-import { Typography, Button, IconButton, Box } from '@mui/material';
+import { styled, Typography, Button, IconButton, Box } from '@mui/material';
 import chatLogData from 'api/chatLog';
 
-import { SNATCH_COLOR } from 'constants/snatchTheme';
+import { SNATCH_COLOR, SNATCH_HEIGHT } from 'constants/snatchTheme';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
+
+export const StyledTypography = styled(Typography)(() => ({
+  fontSize: '18px',
+  fontWeight: '600',
+  color: SNATCH_COLOR.deepDark,
+  alignContent: 'center',
+}));
 
 const ChattingLog = () => {
   return (
@@ -13,18 +20,7 @@ const ChattingLog = () => {
           <EditNoteOutlinedIcon />
         </IconButton>
       </div>
-      <Typography
-        sx={{
-          fontSize: '18px',
-          fontWeight: '600',
-          color: SNATCH_COLOR.deepDark,
-          marginBottom: '10px',
-          height: '10%',
-          alignContent: 'center',
-        }}
-      >
-        Chatting Log
-      </Typography>
+      <StyledTypography sx={{ marginBottom: '10px', height: '10%' }}>Chatting Log</StyledTypography>
       <Box
         className="flex-col w-full h-[80%] overflow-y-auto"
         sx={{
@@ -32,11 +28,8 @@ const ChattingLog = () => {
             width: '5px',
           },
           '&::-webkit-scrollbar-thumb': {
-            backgroundColor: SNATCH_COLOR.dark,
+            backgroundColor: SNATCH_COLOR.light,
             borderRadius: '30px',
-          },
-          '&::-webkit-scrollbar-thumb:hover': {
-            backgroundColor: SNATCH_COLOR.deepDark,
           },
         }}
       >
