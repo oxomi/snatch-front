@@ -3,6 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import MainLayout from 'components/Layout/MainLayout';
 import FullContainer from 'components/Layout/Container/FullContainer';
 import ChatPage from 'pages/Chat/ChatPage';
+import ChattingLog from 'components/SideNav/ChattingLog';
 
 const useMainRouter = () => {
   return useRoutes([
@@ -16,6 +17,7 @@ const useMainRouter = () => {
         },
       ],
     },
+    { path: 'chatlog', element: <ChattingLog /> },
   ]);
 };
 

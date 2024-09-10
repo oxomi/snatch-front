@@ -4,6 +4,7 @@ import { ReactComponent as Logo } from 'assets/logo_dark.svg';
 import { Drawer, Box } from '@mui/material';
 
 import { SNATCH_COLOR, SNATCH_WIDTH } from 'constants/snatchTheme';
+import ChattingLog from 'components/SideNav/ChattingLog';
 
 const Sidebar = () => {
   return (
@@ -29,7 +30,7 @@ const Sidebar = () => {
       <Link to="/">
         <Logo />
       </Link>
-      <Box sx={{ border: '1px solid gray' }} className="flex-1 w-[75%]"></Box>
+      <ChattingLog />
     </Drawer>
   );
 };
