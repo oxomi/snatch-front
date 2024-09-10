@@ -1,230 +1,194 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, Typography, TextField, IconButton, Slider, Box } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit'; // 수정 아이콘
-import { SNATCH_COLOR } from 'constants/snatchTheme';
 
 // 슬라이더에 필요한 값 설정
 const marks = [
-  {
+    {
     value: 0,
     label: '0%',
-  },
-  {
-    value: 50,
-    label: '50%',
-  },
-  {
+    },
+
+    {
+    value: 20,
+    label: '20%',
+    },
+ 
+    {
+    value: 40,
+    label: '40%',
+    },
+
+    {
+    value: 60,
+    label: '60%',
+    },
+
+    {
+    value: 80,
+    label: '80%',
+    },
+    {
     value: 100,
     label: '100%',
-  },
+    },
+
 ];
 
 // 슬라이더의 값 표시 함수
 const valuetext = (value) => `${value}%`;
 
 const DBPage = () => {
-  // 초기 상태와 수정 모드 상태 설정
-  const [maskingRule, setMaskingRule] = useState(
-    `{ "type": "masking_rule", "description": "전화번호를 ***-****-**** 형식으로 마스킹합니다." }`
-  );
-  const [validationRule, setValidationRule] = useState(
-    `{ "validation_rule", "description": "전화번호는 10-11자리의 숫자로 이루어져야 합니다." }`
-  );
-  const [isEditingMaskingRule, setIsEditingMaskingRule] = useState(false); // 수정 모드
-  const [isEditingValidationRule, setIsEditingValidationRule] = useState(false); // 수정 모드
+    // 초기 상태와 수정 모드 상태 설정
+    const [maskingRule, setMaskingRule] = useState(
+        `ex. <주요 물류 기업과의 장기 계약 정보>
+        고객사 A:
 
-  return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%', backgroundColor: 'transparent', minHeight: '100vh'}}>
-      
-      {/* Section 1 */}
-      <Card 
-        sx={{ 
-          borderRadius: '30px',
-          boxShadow: 'none', // 그림자 제거
-          border: 'none', // 테두리 제거
-        }}>
-        <CardContent sx={{ padding: '24px' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
-              1. <span style={{ color: '#2D58AC' }}>연락처</span>에 대한 마스킹 수준
+        계약 시작일: 2021년 3월 1일
+        계약 종료일: 2026년 3월 1일
+        계약 규모: $250,000,000
+        서비스 내용: 해상 컨테이너 운송 및 항만 창고 관리 서비스.
+        계약 연장 가능성: 계약 만료 6개월 전, 연장 옵션 검토.
+        특별 조건: 매년 물류 비용의 3% 증가율 적용.`
+    );
+
+    const [isEditingMaskingRule, setIsEditingMaskingRule] = useState(false); // 수정 모드
+
+    // 슬라이더 값을 저장하는 상태
+    const [similarityThreshold, setSimilarityThreshold] = useState(80);
+
+    // 슬라이더 값이 변경될 때 호출되는 함수
+    const handleSliderChange = (event, newValue) => {
+        setSimilarityThreshold(newValue); // 상태 업데이트
+    };
+
+    // useEffect로 body에 overflow hidden을 적용
+    useEffect(() => {
+        document.body.style.overflow = 'hidden'; // 스크롤 제거
+
+        // 컴포넌트가 언마운트 될 때 스크롤 복구
+        return () => {
+            document.body.style.overflow = 'auto';
+        };
+    }, []);
+
+    return (
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '100%', backgroundColor: 'transparent', height: '100vh' }}>
+        
+        {/* Section 1 */}
+        <Card 
+            sx={{ 
+            borderRadius: '30px',
+            boxShadow: 'none', // 그림자 제거
+            border: 'none', // 테두리 제거
+            height: '20vh', // 높이 조정
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center', // 카드 내부 중앙 정렬
+            }}>
+            <CardContent sx={{ padding: '24px' }}>
+            <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333', marginLeft: '1%' }}>
+                1. <span style={{ color: '#2D58AC' }}>유사도 검증</span> 수준
             </Typography>
-            <Slider
-              aria-label="Always visible"
-              defaultValue={0}
-              getAriaValueText={valuetext}
-              step={50}
-              marks={marks}
-              valueLabelDisplay="off"
-              sx={{ 
-                width: '40%',
-              }}  
-            />
-          </Box>
-        </CardContent>
-      </Card>
-
-      {/* Section 2 */}
-      <Card 
-        sx={{ 
-          borderRadius: '30px',
-          boxShadow: 'none', // 그림자 제거
-          border: 'none', // 테두리 제거
-        }}>
-        <CardContent sx={{ padding: '24px' }}>
-          <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
-            2. 마스킹 가이드
-          </Typography>
-
-          {/* 첫 번째 박스 (Masking rule) */}
-          <div style={{ position: 'relative' }}>
-            {isEditingMaskingRule ? (
-              <TextField
-                multiline
-                fullWidth
-                minRows={3}
-                maxRows={6}
-                value={maskingRule}
-                onChange={(e) => setMaskingRule(e.target.value)}
+            <Typography 
+                    variant="body2" 
+                    style={{ fontSize: '12px', color: '#666', marginBottom: '16px', marginLeft: '1%' }}>
+                    유사도가 {similarityThreshold}% 이상일 경우 질문을 차단합니다.
+            </Typography>
+            <Box 
                 sx={{ 
-                  backgroundColor: '#000', 
-                  padding: 2, 
-                  borderRadius: '4px', 
-                  fontFamily: 'Roboto',  
-                  fontSize: '16px',      
-                  input: { color: '#fff' },      
-                  textarea: { color: '#fff' },   
-                  '& .MuiInputBase-input': { color: '#fff' },
+                display: 'flex', 
+                justifyContent: 'center', // 수평 가운데 정렬
+                marginTop: '16px', // 위쪽 여백 추가
                 }}
-              />
-            ) : (
-              <div style={{ 
-                backgroundColor: '#000', 
-                color: '#fff', 
-                padding: '16px', 
-                borderRadius: '30px', 
-                fontFamily: 'Roboto', 
-                fontSize: '16px',
-                minHeight: '70px', // 최소 높이 추가
-                display: 'flex', // 높이를 고정하기 위해 추가
-                alignItems: 'center', // 텍스트를 세로 중앙 정렬
-                }}
-                >
-                {maskingRule}
-              </div>
-            )}
-            <IconButton
-              onClick={() => setIsEditingMaskingRule(!isEditingMaskingRule)}
-              style={{ position: 'absolute', top: '8px', right: '8px', color: '#fff' }}
             >
-              <EditIcon />
-            </IconButton>
-          </div>
-
-          {/* 두 번째 박스 (Validation rule) */}
-          <div style={{ position: 'relative', marginTop: '16px'}}>
-            {isEditingValidationRule ? (
-              <TextField
-                multiline
-                fullWidth
-                minRows={3}
-                maxRows={6}
-                value={validationRule}
-                onChange={(e) => setValidationRule(e.target.value)}
+                <Slider
+                aria-label="Always visible"
+                defaultValue={80}
+                getAriaValueText={valuetext}
+                step={10}
+                marks={marks}
+                value={similarityThreshold} // 슬라이더의 값은 similarityThreshold 상태
+                onChange={handleSliderChange} // 슬라이더 값이 변경되면 호출
+                valueLabelDisplay="on" // 현재 슬라이더 값을 보여주기 위해 "on"으로 설정
                 sx={{ 
-                  backgroundColor: '#000', 
-                  padding: 2, 
-                  borderRadius: '4px', 
-                  fontFamily: 'Roboto',  
-                  fontSize: '16px',      
-                  input: { color: '#fff' },      
-                  textarea: { color: '#fff' },   
-                  '& .MuiInputBase-input': { color: '#fff' },
-                }}
-              />
-            ) : (
+                    width: '80%', // 슬라이더의 너비를 설정 (80%로 설정하여 여백 확보)
+                }}  
+                />
+            </Box>
+            </CardContent>
+        </Card>
+
+        {/* Section 2 */}
+        <Card 
+            sx={{ 
+            borderRadius: '30px',
+            boxShadow: 'none', // 그림자 제거
+            border: 'none', // 테두리 제거
+            height: '65vh', 
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center', // 카드 내부 중앙 정렬
+            }}>
+            <CardContent sx={{ padding: '24px' }}>
+                <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333', marginLeft: '1%' }}>
+                    2. <span style={{ color: '#2D58AC' }}> 보호 대상 데이터</span> 등록
+                </Typography>
+                <Typography 
+                    variant="body2" 
+                    style={{ fontSize: '12px', color: '#666', marginBottom: '16px', marginLeft: '1%' }}>
+                    기밀 정보(예: 계약서, 거래 동향 등)를 입력하세요. 입력된 정보는 유사도 검증을 통해 차단될 수 있습니다.
+                </Typography>
+
+            <div style={{ position: 'relative' }}>
+                {isEditingMaskingRule ? (
+                <TextField
+                    multiline
+                    fullWidth
+                    minRows={3}
+                    maxRows={6}
+                    value={maskingRule}
+                    onChange={(e) => setMaskingRule(e.target.value)}
+                    sx={{ 
+                    backgroundColor: '#000', 
+                    padding: 2, 
+                    borderRadius: '4px', 
+                    fontFamily: 'Roboto',  
+                    fontSize: '16px',      
+                    input: { color: '#fff' },      
+                    textarea: { color: '#fff' },   
+                    '& .MuiInputBase-input': { color: '#fff' },
+                    }}
+                />
+                ) : (
                 <div style={{ 
                     backgroundColor: '#000', 
                     color: '#fff', 
+                    marginTop: '20px',
                     padding: '16px', 
                     borderRadius: '30px', 
                     fontFamily: 'Roboto', 
                     fontSize: '16px',
-                    minHeight: '70px', // 최소 높이 추가
+                    minHeight: '50vh', // 최소 높이 추가
                     display: 'flex', // 높이를 고정하기 위해 추가
                     alignItems: 'center', // 텍스트를 세로 중앙 정렬
                     }}
                     >
                     {maskingRule}
-                  </div>
-            )}
-            <IconButton
-              onClick={() => setIsEditingValidationRule(!isEditingValidationRule)}
-              style={{ position: 'absolute', top: '8px', right: '8px', color: '#fff' }}
-            >
-              <EditIcon />
-            </IconButton>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Section 3 */}
-      <Card 
-        sx={{ 
-          borderRadius: '30px',
-          boxShadow: 'none', // 그림자 제거
-          border: 'none', // 테두리 제거
-        }}>
-        <CardContent sx={{ padding: '24px' }}>
-            <Typography variant="h6" gutterBottom style={{ fontSize: '18px', fontWeight: 'bold', color: '#333' }}>
-              3. 적용 예시
-            </Typography>
-
-            {/* 박스를 오른쪽 정렬하기 위한 부모 박스 */}
-            <Box
-                sx={{
-                    display: 'flex', // flex 레이아웃 적용
-                    justifyContent: 'flex-end', // 내부 요소를 오른쪽으로 정렬
-                    alignItems: 'center', // 세로 방향으로 중앙 정렬
-                    marginTop: '3%',
-                    marginBottom: '24px', // 아래쪽에 여백 추가
-                    marginRight: '2%',
-                }}
-            >
-                <Box
-                    sx={{
-                        backgroundColor: '#E5E7EB', // 연회색 배경
-                        textAlign: 'center', 
-                        fontSize: '16px',
-                        color: SNATCH_COLOR.black, 
-                        padding: '16px 24px', // 상하좌우 패딩 추가
-                    }}
+                </div>
+                )}
+                <IconButton
+                onClick={() => setIsEditingMaskingRule(!isEditingMaskingRule)}
+                style={{ position: 'absolute', top: '8px', right: '8px', color: '#fff' }}
                 >
-                    ***-****-****는 나의 휴대전화번호이다.
-                </Box>
-            </Box>
+                <EditIcon />
+                </IconButton>
+                </div>
+            </CardContent>
+        </Card>
 
-            <Typography 
-                style={{ 
-                    color: SNATCH_COLOR.black, 
-                    textAlign: 'left', 
-                    marginTop: '7%',
-                    marginLeft: '2%',
-                    marginBottom: '3%',
-                    marginRight: '2%',
-                    paddingLeft: '2%',
-                    paddingTop: '30px', 
-                    paddingBottom: '30px', 
-                    borderTop: '2px solid #7D7F8B', // 상단 선
-                    borderBottom: '2px solid #7D7F8B', // 하단 선
-                }}
-            >
-                전화번호는 개인정보입니다. 다른 질문을 해주시겠어요?
-            </Typography>
-        </CardContent>
-      </Card>
-
-    </div>
-  );
+        </div>
+    );
 };
 
 export default DBPage;
