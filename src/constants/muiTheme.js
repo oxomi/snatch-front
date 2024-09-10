@@ -4,6 +4,7 @@ import { SNATCH_COLOR } from './snatchTheme';
 const muiTheme = createTheme({
   palette: {
     mode: 'light',
-    
-  }
-})
+  },
+});
+
+export default muiTheme;

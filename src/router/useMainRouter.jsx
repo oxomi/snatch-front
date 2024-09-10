@@ -1,6 +1,6 @@
 import React from 'react';
 import { useRoutes } from 'react-router-dom';
-import MainLayout from 'components/Layout/MainLayout';
+// import MainLayout from 'components/Layout/MainLayout';
 
 const useMainRouter = () => {
   return useRoutes([
@@ -9,8 +9,8 @@ const useMainRouter = () => {
       element: <MainLayout />,
     },
     {
-      path: '/signup',
-      element: <Signup />,
+      path: '/Header',
+      element: <Header />,
     },
   ]);
 };
