@@ -1,7 +1,7 @@
 import { SNATCH_COLOR, SNATCH_HEIGHT, SNATCH_WIDTH } from './src/constants/snatchTheme';
 
 module.exports = {
-  content: ['./src/**/*.{js,jsx}'],
+  content: ['./src/**/*.{js,jsx}', './public/index.html'],
   theme: {
     extend: {
       colors: {

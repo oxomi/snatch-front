@@ -22,7 +22,7 @@ const muiTheme = createTheme({
   },
   components: {
     MuiButton: {
-      stylesOverrides: {
+      stylesoverrides: {
         root: {
           textTransform: 'none',
         },
