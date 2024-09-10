@@ -5,6 +5,7 @@ import { Drawer, Box } from '@mui/material';
 
 import { SNATCH_COLOR, SNATCH_WIDTH } from 'constants/snatchTheme';
 import ChattingLog from 'components/SideNav/ChattingLog';
+import InfoCategory from 'components/SideNav/InfoCategory';
 
 const Sidebar = () => {
   return (
@@ -31,6 +32,7 @@ const Sidebar = () => {
         <Logo />
       </Link>
       <ChattingLog />
+      {/* <InfoCategory /> */}
     </Drawer>
   );
 };
