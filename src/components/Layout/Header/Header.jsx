@@ -60,7 +60,7 @@ const Header = () => {
   return (
     <div>
       <AppBar
-        position="fixed"
+        position="absolute"
         style={{
           backgroundColor: 'transparent',
           boxShadow: 'none',
