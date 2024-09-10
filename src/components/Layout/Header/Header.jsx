@@ -72,7 +72,7 @@ const Header = () => {
         <Toolbar
           style={{
             justifyContent: 'flex-start', // 좌측 정렬을 유지
-            paddingLeft: '350px', // 사이드바 공간 고려 (200px 왼쪽 여백)
+            paddingLeft: '330px', // 사이드바 공간 고려 (200px 왼쪽 여백)
           }}
         >
           {/* 탭을 커스터마이징한 StyledTabs와 StyledTab을 사용 */}

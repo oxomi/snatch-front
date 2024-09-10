@@ -4,7 +4,7 @@ import { Outlet } from 'react-router-dom';
 const FullContainer = () => {
   return (
     <div className="flex justify-center w-full min-h-screen min-h-scree pt-14 sm:pt-header">
-      <div className="w-full p-5 max-container">
+      <div className="w-full px-10 max-container">
         <Outlet />
       </div>
     </div>
