@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { styled, Box, TextField, Button, Stack, InputAdornment, IconButton } from '@mui/material';
-import { StyledBox } from 'pages/Chat/ChatPage';
-
 import { SNATCH_COLOR } from 'constants/snatchTheme';
 import Logo from 'assets/logo_dark.svg';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -55,7 +54,7 @@ const Login = () => {
   return (
     <InitBox>
       <img src={Logo} className="w-[130px] my-10" />
-      <div className="flex flex-col items-center justify-center gap-2 w-[60%]">
+      <form className="flex flex-col items-center justify-center gap-2 w-[60%]" onSubmit={(e) => e.preventDefault()}>
         <InitTextField placeholder="email" type="email" />
         <InitTextField
           placeholder="p/w"
@@ -74,13 +73,15 @@ const Login = () => {
             ),
           }}
         />
-      </div>
-      <Stack direction="row" className="justify-between gap-2 w-[60%] mt-10">
-        <InitBtn className="w-[60%]">Log in</InitBtn>
-        <InitBtn className="w-[40%]" sx={{ backgroundColor: SNATCH_COLOR.light }}>
-          Sign up
-        </InitBtn>
-      </Stack>
+        <Stack direction="row" className="justify-between gap-2 w-[60%] mt-10">
+          <InitBtn type="submit" className="w-[60%]">
+            Log in
+          </InitBtn>
+          <InitBtn component={Link} to="/signup" className="w-[40%]" sx={{ backgroundColor: SNATCH_COLOR.light }}>
+            Sign up
+          </InitBtn>
+        </Stack>
+      </form>
     </InitBox>
   );
 };
