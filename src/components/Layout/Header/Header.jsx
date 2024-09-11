@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Tabs from '@mui/material/Tabs';
@@ -39,24 +39,10 @@ const StyledTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }
 }));
 
 const Header = () => {
-  const [selectTab, setSelectTab] = useState(0);
+  const location = useLocation();
 
-  const TabChange = (event, newValue) => {
-    setSelectTab(newValue);
-  };
-
-  const renderContent = () => {
-    switch (selectTab) {
-      case 0:
-        return <div>Chat Content</div>;
-      case 1:
-        return <div>DB Content</div>;
-      case 2:
-        return <div>Monitor Content</div>;
-      default:
-        return null;
-    }
-  };
+  // 현재 URL에 기반하여 활성화된 탭의 인덱스를 결정합니다.
+  const tabValue = location.pathname === '/database' ? 1 : location.pathname === '/monitor' ? 2 : 0;
 
   return (
     <div>
@@ -78,8 +64,7 @@ const Header = () => {
         >
           {/* 탭을 커스터마이징한 StyledTabs와 StyledTab을 사용 */}
           <StyledTabs
-            value={selectTab}
-            onChange={TabChange}
+            value={tabValue}
             sx={{
               marginRight: 'auto', // 탭과 버튼 사이 간격 자동으로 최대로 늘림
               marginTop: '20px',
@@ -87,8 +72,8 @@ const Header = () => {
             }} // 요소의 내용과 요소의 경계(테두리) 사이의 공간을 정의
           >
             <StyledTab label="Chat" component={Link} to="/" />
-            <StyledTab label="DB" component={Link} to="database" />
-            <StyledTab label="Monitor" component={Link} to="monitor" />
+            <StyledTab label="DB" component={Link} to="/database" />
+            <StyledTab label="Monitor" component={Link} to="/monitor" />
           </StyledTabs>
 
           <div style={{ marginLeft: 'auto', marginTop: '20px' }}>

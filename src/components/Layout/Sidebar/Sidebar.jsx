@@ -15,7 +15,7 @@ const Sidebar = () => {
     } else if (location.pathname === '/database') {
       return <InfoCategory />;
     } else {
-      return <ChattingLog />;
+      return null;
     }
   };
 
