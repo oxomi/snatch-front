@@ -16,7 +16,7 @@ const valuetext = (value) => `${value}%`;
 
 const DBPage = () => {
     const [maskingRule, setMaskingRule] = useState(
-        `ex. <주요 물류 기업과의 장기 계약 정보>\n고객사 A:\n\n계약 시작일: 2021년 3월 1일\n계약 종료일: 2026년 3월 1일\n계약 규모: $250,000,000\n서비스 내용: 해상 컨테이너 운송 및 항만 창고 관리 서비스.\n계약 연장 가능성: 계약 만료 6개월 전, 연장 옵션 검토.\n특별 조건: 매년 물류 비용의 3% 증가율 적용.`
+        `여기에 입력해주세요.`
     );
     const [isEditingMaskingRule, setIsEditingMaskingRule] = useState(false); // 수정 모드
     const [tempMaskingRule, setTempMaskingRule] = useState(maskingRule); // 수정 중 임시 상태 저장
