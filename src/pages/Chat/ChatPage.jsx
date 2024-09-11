@@ -50,7 +50,10 @@ const ChatPage = () => {
             borderRadius: '30px',
           },
         }}
-      ></StyledBox>
+      >
+        <QuestionChat />
+        <AnswerChat />
+      </StyledBox>
       <TextField
         value={question}
         onChange={(e) => setQuestion(e.target.value)}
