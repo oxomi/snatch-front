@@ -9,8 +9,8 @@ const monitorInfo = [
     ],
     access_data_rank: [
       { ranking: 1, type: '항만 운영 계획', access_try: 3 },
-      { ranking: 2, type: '항만 운영 계획', access_try: 2 },
-      { ranking: 3, type: '항만 운영 계획', access_try: 1 },
+      { ranking: 2, type: '재무 보고서', access_try: 2 },
+      { ranking: 3, type: '제품 출시 계획', access_try: 1 },
     ],
   },
 ];

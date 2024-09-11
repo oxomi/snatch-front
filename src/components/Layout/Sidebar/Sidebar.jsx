@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, matchPath } from 'react-router-dom';
 import { ReactComponent as Logo } from 'assets/logo_dark.svg';
 import { Drawer, Box } from '@mui/material';
 
@@ -7,15 +7,19 @@ import { SNATCH_COLOR, SNATCH_WIDTH } from 'constants/snatchTheme';
 import ChattingLog from 'components/SideNav/ChattingLog';
 import InfoCategory from 'components/SideNav/InfoCategory';
 
+import oceanImg from 'assets/ocean_poster.jpg';
+
 const Sidebar = () => {
   const location = useLocation();
   const renderList = () => {
-    if (location.pathname === '/') {
+    const matchChatIdPath = matchPath('/chatpage/:chatId', location.pathname);
+    const matchDbPath = matchPath('/database/:category', location.pathname);
+    if (location.pathname === '/' || matchChatIdPath) {
       return <ChattingLog />;
-    } else if (location.pathname === '/database') {
+    } else if (location.pathname === '/database' || matchDbPath) {
       return <InfoCategory />;
     } else {
-      return null;
+      return <img src={oceanImg} style={{ width: '80%', marginTop: 70 }} />;
     }
   };
 

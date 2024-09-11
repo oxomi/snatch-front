@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import { styled, Box, TextField, InputAdornment, IconButton } from '@mui/material';
 import QuestionChat from './QuestionChat';
 import AnswerChat from './AnswerChat';
-
+import chatLog from 'api/chatLog';
 import { submitQuestion } from 'api/chattingApi'; // GPT API 연결
-
 import { SNATCH_COLOR } from 'constants/snatchTheme';
 import ArrowCircleUpOutlinedIcon from '@mui/icons-material/ArrowCircleUpOutlined';
 
@@ -16,19 +16,35 @@ export const StyledBox = styled(Box)(() => ({
 }));
 
 const ChatPage = () => {
+  const { id } = useParams();
+  const chatLogEntry = chatLog.find((log) => log.chatId === parseInt(id));
   const [question, setQuestion] = useState('');
   const [chatHistory, setChatHistory] = useState([]);
+
+  useEffect(() => {
+    // 페이지 로드 시 저장된 기록을 불러옵니다.
+    const storedChatHistory = JSON.parse(localStorage.getItem(`chatHistory_${id}`)) || [];
+    setChatHistory(storedChatHistory);
+  }, [id]);
 
   const handleSubmit = async () => {
     if (!question.trim()) return;
 
     const newChat = { type: 'question', text: question };
-    setChatHistory((prevHistory) => [...prevHistory, newChat]);
+    const updatedChatHistory = [...chatHistory, newChat];
+    setChatHistory(updatedChatHistory);
+
+    // 기록을 localStorage에 저장합니다.
+    localStorage.setItem(`chatHistory_${id}`, JSON.stringify(updatedChatHistory));
 
     try {
       const response = await submitQuestion(question); // GPT API에 질문 전송
       const answerChat = { type: 'answer', text: response.data.response }; // GPT의 답변 추가
-      setChatHistory((prevHistory) => [...prevHistory, answerChat]);
+      const updatedChatHistoryWithAnswer = [...updatedChatHistory, answerChat];
+      setChatHistory(updatedChatHistoryWithAnswer);
+
+      // 답변이 추가된 기록을 localStorage에 저장합니다.
+      localStorage.setItem(`chatHistory_${id}`, JSON.stringify(updatedChatHistoryWithAnswer));
     } catch (error) {
       console.error('Error submitting question:', error);
     }
@@ -50,13 +66,15 @@ const ChatPage = () => {
           },
         }}
       >
-        {chatHistory.map((chat, index) => (
+        {/* <h2>대화 {id}</h2> */}
+        <h2>대화 11</h2>
+        {chatHistory.map((chat, index) =>
           chat.type === 'question' ? (
             <QuestionChat key={index} question={chat.text} />
           ) : (
             <AnswerChat key={index} answer={chat.text} />
-          )
-        ))}
+          ),
+        )}
       </StyledBox>
       <TextField
         value={question}

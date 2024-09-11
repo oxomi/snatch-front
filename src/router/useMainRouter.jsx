@@ -7,6 +7,7 @@ import DbPage from 'pages/DB/DbPage';
 import MonitorPage from 'pages/Monitor/MonitorPage';
 import Login from 'pages/Init/Login';
 import Signup from 'pages/Init/Signup';
+import ExPage from 'pages/Chat/Examples/ExPage';
 
 const useMainRouter = () => {
   return useRoutes([
@@ -18,8 +19,11 @@ const useMainRouter = () => {
           element: <FullContainer />,
           children: [
             { index: true, element: <ChatPage /> },
-            { path: 'database', element: <DbPage /> },
+            { path: 'database/', element: <DbPage /> },
+            { path: 'database/:category', element: <DbPage /> },
             { path: 'monitor', element: <MonitorPage /> },
+            { path: 'chatpage/:chatId', element: <ExPage /> },
+            { path: 'chatpage/11', element: <ChatPage /> },
           ],
         },
       ],

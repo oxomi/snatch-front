@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { styled, Typography, Button, IconButton, Box } from '@mui/material';
 import chatLogData from 'api/chatLog';
+import ExPage from 'pages/Chat/Examples/ExPage';
 
 import { SNATCH_COLOR, SNATCH_HEIGHT } from 'constants/snatchTheme';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
@@ -13,10 +15,25 @@ export const StyledTypography = styled(Typography)(() => ({
 }));
 
 const ChattingLog = () => {
+  const [chatLog, setChatLog] = useState(chatLogData);
+
+  const handleNewChat = () => {
+    // chatId 11로 된 새로운 객체 생성
+    const newChat = {
+      chatId: 11,
+      timestamp: new Date().toISOString(), // 현재 시간으로 timestamp 설정
+      title: '대화 11',
+      contents: '',
+    };
+
+    setChatLog((prevLog) => [...prevLog, newChat]);
+    console.log(chatLog);
+  };
+
   return (
     <Box className="flex flex-col flex-1 w-[70%] h-full">
       <div className="flex justify-end h-[10%] items-center">
-        <IconButton className="w-[30px] h-[30px] ml-auto">
+        <IconButton className="w-[30px] h-[30px] ml-auto" onClick={handleNewChat} component={Link} to="/chatpage/11">
           <EditNoteOutlinedIcon />
         </IconButton>
       </div>
@@ -47,9 +64,10 @@ const ChattingLog = () => {
               borderBottom: `1px solid ${SNATCH_COLOR.light}`,
               color: SNATCH_COLOR.deepDark,
             }}
-            onClick={() => alert(`Clicked on: ${log.summary}`)}
+            component={Link}
+            to={`/chatpage/${log.chatId}`}
           >
-            {log.summary}
+            {log.title}
           </Button>
         ))}
       </Box>
