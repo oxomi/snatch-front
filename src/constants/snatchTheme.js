@@ -1,7 +1,7 @@
 export const SNATCH_COLOR = {
   white: '#FFFFFF',
   light: '#D3DFF1',
-  deepLight: '#7D7F8',
+  deepLight: '#7D7F8B',
   dark: '#434C5A',
   deepDark: '#3B3D46',
   black: '#000000',
