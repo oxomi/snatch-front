@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 
 import { SNATCH_COLOR } from 'constants/snatchTheme';
 
-const AnswerChat = () => {
+const AnswerChat = ({ answer }) => {
   return (
     <Box
       className="w-full p-3"
@@ -13,7 +13,7 @@ const AnswerChat = () => {
         color: SNATCH_COLOR.deepDark,
       }}
     >
-      asdf
+      {answer}
     </Box>
   );
 };
