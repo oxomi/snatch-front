@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -9,40 +9,49 @@ import { styled } from '@mui/material/styles';
 import { SNATCH_HEIGHT } from 'constants/snatchTheme';
 
 const StyledTabs = styled(Tabs)({
-  backgroundColor: 'transparent', // 탭 배경색
+  backgroundColor: 'transparent',
   '& .MuiTabs-indicator': {
-    display: 'none', // 기본 MUI 하단 바 숨기기
+    display: 'none',
   },
 });
 
 const StyledTab = styled((props) => <Tab disableRipple {...props} />)(({ theme }) => ({
-  textTransform: 'none', // 텍스트 대문자로 변환 방지
-  width: '120px', // 강조선 길이
-  minWidth: 70, // 최소 너비
-  fontWeight: 500, // 텍스트 굵기
-  fontSize: '16px', // 폰트 크기
-  color: '#FFFFFF', // 기본 탭 텍스트 색상 (비활성)
+  textTransform: 'none',
+  width: '120px',
+  minWidth: 70,
+  fontWeight: 500,
+  fontSize: '16px',
+  color: '#FFFFFF',
   '&.Mui-selected': {
-    color: '#2D58AC', // 선택된 탭 텍스트 색상
+    color: '#2D58AC',
   },
   '&:after': {
     content: '""',
     display: 'block',
-    width: '100%', // 각 탭 하단의 강조선
-    height: '3px', // 강조선 두께
-    backgroundColor: '#FFFFFF', // 기본 강조선 색상 흰색
-    marginTop: '8px', // 강조선 위쪽 여백
+    width: '100%',
+    height: '3px',
+    backgroundColor: '#FFFFFF',
+    marginTop: '8px',
   },
   '&.Mui-selected:after': {
-    backgroundColor: '#2D58AC', // 선택된 탭 강조선 색상
+    backgroundColor: '#2D58AC',
   },
 }));
 
 const Header = () => {
   const location = useLocation();
+  const [tabValue, setTabValue] = useState(0);
 
-  // 현재 URL에 기반하여 활성화된 탭의 인덱스를 결정합니다.
-  const tabValue = location.pathname === '/database' ? 1 : location.pathname === '/monitor' ? 2 : 0;
+  // 현재 경로에 따라 탭을 변경
+  useEffect(() => {
+    if (location.pathname.startsWith('/database')) {
+      setTabValue(1);
+    } else if (location.pathname.startsWith('/monitor')) {
+      setTabValue(2);
+    } else {
+      setTabValue(0);
+    }
+  }, [location]);
 
   return (
     <div>
@@ -58,18 +67,18 @@ const Header = () => {
       >
         <Toolbar
           style={{
-            justifyContent: 'flex-start', // 좌측 정렬을 유지
-            paddingLeft: '330px', // 사이드바 공간 고려 (200px 왼쪽 여백)
+            justifyContent: 'flex-start',
+            paddingLeft: '330px',
           }}
         >
-          {/* 탭을 커스터마이징한 StyledTabs와 StyledTab을 사용 */}
           <StyledTabs
             value={tabValue}
             sx={{
-              marginRight: 'auto', // 탭과 버튼 사이 간격 자동으로 최대로 늘림
+              marginRight: 'auto',
               marginTop: '20px',
               paddingRight: '20px',
-            }} // 요소의 내용과 요소의 경계(테두리) 사이의 공간을 정의
+            }}
+            onChange={(event, newValue) => setTabValue(newValue)}
           >
             <StyledTab label="Chat" component={Link} to="/" />
             <StyledTab label="DB" component={Link} to="/database" />
@@ -109,9 +118,6 @@ const Header = () => {
           </div>
         </Toolbar>
       </AppBar>
-
-      {/* 선택된 탭에 따른 페이지를 렌더링 */}
-      {/* <div>{renderContent()}</div> */}
     </div>
   );
 };
