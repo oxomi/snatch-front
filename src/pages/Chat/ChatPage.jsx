@@ -39,7 +39,7 @@ const ChatPage = () => {
   return (
     <div className="flex flex-col h-full gap-5">
       <StyledBox
-        className="flex flex-col w-full gap-10 p-10 h-[550px]"
+        className="flex flex-col w-full gap-10 p-10 h-[100%]"
         sx={{
           '&::-webkit-scrollbar': {
             width: '7px',
