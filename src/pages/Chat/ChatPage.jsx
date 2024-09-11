@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { styled, Box, Typography, TextField, InputAdornment, IconButton } from '@mui/material';
+import { styled, Box, TextField, InputAdornment, IconButton } from '@mui/material';
 import QuestionChat from './QuestionChat';
 import AnswerChat from './AnswerChat';
 
-import { submitQuestion } from 'api/chattingApi';
+import { submitQuestion } from 'api/chattingApi'; // GPT API 연결
 
 import { SNATCH_COLOR } from 'constants/snatchTheme';
 import ArrowCircleUpOutlinedIcon from '@mui/icons-material/ArrowCircleUpOutlined';
@@ -22,13 +22,12 @@ const ChatPage = () => {
   const handleSubmit = async () => {
     if (!question.trim()) return;
 
-    const newChat = { type: 'question', text: 'question' };
+    const newChat = { type: 'question', text: question };
     setChatHistory((prevHistory) => [...prevHistory, newChat]);
 
     try {
-      const answer = await submitQuestion(question);
-
-      const answerChat = { type: 'answer', text: answer };
+      const response = await submitQuestion(question); // GPT API에 질문 전송
+      const answerChat = { type: 'answer', text: response.data.response }; // GPT의 답변 추가
       setChatHistory((prevHistory) => [...prevHistory, answerChat]);
     } catch (error) {
       console.error('Error submitting question:', error);
@@ -51,8 +50,13 @@ const ChatPage = () => {
           },
         }}
       >
-        <QuestionChat />
-        <AnswerChat />
+        {chatHistory.map((chat, index) => (
+          chat.type === 'question' ? (
+            <QuestionChat key={index} question={chat.text} />
+          ) : (
+            <AnswerChat key={index} answer={chat.text} />
+          )
+        ))}
       </StyledBox>
       <TextField
         value={question}
