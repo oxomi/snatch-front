@@ -4,7 +4,7 @@ import { styled, Box, TextField, Button, Stack, InputAdornment, IconButton } fro
 import { SNATCH_COLOR } from 'constants/snatchTheme';
 import Logo from 'assets/logo_dark.svg';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { handleLogin } from 'api/accountApi';
+import { handleLogin } from 'api/accountApi';  // 로그인 API 함수 가져오기
 
 export const InitBox = styled(Box)(() => ({
   borderRadius: '20px',
@@ -47,18 +47,21 @@ InitBtn.defaultProps = {
 
 const Login = () => {
   const [showPw, setShowPw] = useState(false);
+  const [email, setEmail] = useState('');  // 이메일 상태 추가
+  const [password, setPassword] = useState('');  // 비밀번호 상태 추가
+  const navigate = useNavigate();
+
   const handlePwOn = () => setShowPw((show) => !show);
   const handlePwOff = (e) => {
     e.preventDefault();
   };
-  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await handleLogin(email, password);
+      await handleLogin(email, password);  // 로그인 요청
       alert('Login successful');
-      navigate('/'); // 회원가입 성공 시 로그인 페이지로 리다이렉션
+      navigate('/');  // 로그인 성공 시 메인 페이지로 리다이렉션
     } catch (error) {
       alert('Login failed');
     }
@@ -68,10 +71,17 @@ const Login = () => {
     <InitBox>
       <img src={Logo} className="w-[130px] my-10" />
       <form className="flex flex-col items-center justify-center gap-2 w-[60%]" onSubmit={handleSubmit}>
-        <InitTextField placeholder="email" type="email" />
+        <InitTextField
+          placeholder="email"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}  // 이메일 입력 핸들러
+        />
         <InitTextField
           placeholder="p/w"
           type={showPw ? 'text' : 'password'}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}  // 비밀번호 입력 핸들러
           InputProps={{
             endAdornment: (
               <InputAdornment position="end">

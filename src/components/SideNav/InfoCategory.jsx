@@ -2,7 +2,6 @@ import React from 'react';
 import { Typography, Button, IconButton, Box } from '@mui/material';
 import infoCategoryData from 'api/infoCategory';
 import { StyledTypography } from './ChattingLog';
-
 import { SNATCH_COLOR } from 'constants/snatchTheme';
 import AddBoxOutlinedIcon from '@mui/icons-material/AddBoxOutlined';
 
@@ -45,9 +44,9 @@ const InfoCategory = () => {
                     borderBottom: `1px solid ${SNATCH_COLOR.light}`,
                     color: SNATCH_COLOR.deepDark,
                   }}
-                  onClick={() => alert(`Clicked on: ${tag}`)}
+                  onClick={() => alert(`Clicked on: ${tag.tag}`)} // tag 객체의 tag 속성만 출력
                 >
-                  {tag}
+                  {tag.tag} {/* tag 객체의 tag 속성을 출력 */}
                 </Button>
               ))}
           </Box>

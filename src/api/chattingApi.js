@@ -1,33 +1,17 @@
-import { useQuery, useMutation } from 'react-query';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 
 export const submitQuestion = async (question) => {
-  const postData = {
-    question,
-  };
+  const postData = { text: question }; // FastAPI로 보내는 데이터 형식
 
-  // try {
-  //   const responseData = await axios.post('http://localhost:8000/api', postData, {
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   });
-  //   return responseData;
-  // } catch (error) {
-  //   console.error('Error: ', error);
-  //   throw error;
-  // }
   try {
-    const responseData = await axios.post('http://localhost:8000', postData, {
+    const responseData = await axios.post('http://localhost:8000/gpt', postData, {
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    return responseData;
-    console.log(responseData.message);
+    return responseData; // GPT API에서 받은 응답 반환
   } catch (error) {
-    console.error('Error: ', error);
+    console.error('Error submitting question:', error);
     throw error;
   }
 };
