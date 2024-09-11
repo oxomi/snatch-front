@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Typography, Button, IconButton, Box } from '@mui/material';
 import infoCategoryData from 'api/infoCategory';
 import { StyledTypography } from './ChattingLog';
@@ -44,7 +45,8 @@ const InfoCategory = () => {
                     borderBottom: `1px solid ${SNATCH_COLOR.light}`,
                     color: SNATCH_COLOR.deepDark,
                   }}
-                  onClick={() => alert(`Clicked on: ${tag.tag}`)} // tag 객체의 tag 속성만 출력
+                  component={Link}
+                  to={`/database/${info.category}?tag=${encodeURIComponent(tag.tag)}`}
                 >
                   {tag.tag} {/* tag 객체의 tag 속성을 출력 */}
                 </Button>
