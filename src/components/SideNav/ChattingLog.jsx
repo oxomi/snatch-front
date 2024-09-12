@@ -18,11 +18,11 @@ const ChattingLog = () => {
   const [chatLog, setChatLog] = useState(chatLogData);
 
   const handleNewChat = () => {
-    // chatId 11로 된 새로운 객체 생성
+    // chatId 10으로 된 새로운 객체 생성
     const newChat = {
-      chatId: 11,
+      chatId: 10,
       timestamp: new Date().toISOString(), // 현재 시간으로 timestamp 설정
-      title: '대화 11',
+      title: '대화 10',
       contents: '',
     };
 
